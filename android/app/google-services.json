@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "653349341252",
+    "firebase_url": "https://clapmap-bd38c.firebaseio.com",
+    "project_id": "clapmap-bd38c",
+    "storage_bucket": "clapmap-bd38c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653349341252:android:e89b837147f120db",
+        "android_client_info": {
+          "package_name": "com.clapmaprn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653349341252-e2j84aoqmh823cv0267enkam9qt7rttj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clapmaprn",
+            "certificate_hash": "73837e62a5a865d6248508d9a0c3acb4cdca49ff"
+          }
+        },
+        {
+          "client_id": "653349341252-cnaao0cftud6llf9uel2fd5gtl97sr2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1r0d3v7A3FYozjb5OchcoyyyIw_JJh9k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653349341252-cnaao0cftud6llf9uel2fd5gtl97sr2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
