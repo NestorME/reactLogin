@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import{AppRegistry,StyleSheet,Text,TextInput,View,AsyncStorage} from 'react-native';
 import {StackNavigator,NavigationActions} from 'react-navigation';
 import {GoogleSignin,GoogleSigninButton} from 'react-native-google-signin';
+import OrientationLoadingOverlay from 'react-native-orientation-loading-overlay';
+
 
 import Button from '../components/button';
 import firebase from '../../firebase';
@@ -20,7 +22,7 @@ export default class login extends Component {
     this.state = {
       email: '',
       password: '',
-      loaded: true
+      loaded: false
     }
   }
 
@@ -68,30 +70,47 @@ export default class login extends Component {
               onPress={this.loginGmail.bind(this)}/>
 
           <Button
-            text="New here?"
+            text="Registrate"
             onpress={() => navigate('Signup')}
             button_styles={styles.transparent_button}
             button_text_styles={styles.transparent_button_text} />
+
+            <OrientationLoadingOverlay
+          visible={this.state.loaded}
+          color="white"
+          indicatorSize="large"
+          messageFontSize={24}
+          message="Loading..."
+          />
         </View>
       </View>
     );
   }
 
   loginEmail(){
-    this.setState({
-      loaded: false
-    });
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function(result){
-      this.setState({
-        loaded: true
-      });
-          AsyncStorage.setItem('user_data', JSON.stringify(result));
-          this.props.navigator.push({
-            component: Account
-          });
-    }).catch(function(error){
-          alert('Login Failed. Please try again'+ error);
-    });
+    GoogleSignin.signOut()
+.then(() => {
+  console.log('out');
+  firebase.signOut();
+})
+.catch((err) => {
+
+});
+
+    // this.setState({
+    //   loaded: false
+    // });
+    // firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function(result){
+    //   this.setState({
+    //     loaded: true
+    //   });
+    //       AsyncStorage.setItem('user_data', JSON.stringify(result));
+    //       this.props.navigator.push({
+    //         component: Account
+    //       });
+    // }).catch(function(error){
+    //       alert('Login Failed. Please try again'+ error);
+    // });
   }
 
   loginGmail(){
@@ -104,26 +123,49 @@ export default class login extends Component {
               var provider = firebase.auth.GoogleAuthProvider;
               const credential = provider.credential(token);
               firebase.auth().signInWithCredential(credential).then(function(result) {
-                  firebase.database().ref('users').push({
-                    name:result.displayName,
-                    email:result.email,
-                    photoUrl:result.photoURL
+                  let cuser = firebase.auth().currentUser.uid;
+                  // firebase.database().ref('users/'+cuser).set({
+                  //   name:result.displayName,
+                  //   email:result.email,
+                  //   photoUrl:result.photoURL
+                  // })
+                  firebase.database().ref('users/'+cuser)
+                  .once('value', (snapshot)=>{
+                       if(snapshot.name != null){
+                         dispatch(NavigationActions.reset(
+                          {
+                             index: 0,
+                             actions: [
+                               NavigationActions.navigate({ routeName: 'Account'})
+                             ]
+                           }));
+                       }else {
+                         GoogleSignin.signOut().then(() => {
+                       firebase.auth().signOut().then(()=>{
+                         alert("¿No tienes una cuenta? registrate!!!");
+
+                       }).catch((err)=>{
+
+                         alert(err);
+                       });
+                     })
+                     .catch((err) => {
+                         alert(err);
+                     });
+                       }
                   })
                   // AsyncStorage.setItem('user_data', JSON.stringify(result));
-                dispatch(NavigationActions.reset(
-                 {
-                    index: 0,
-                    actions: [
-                      NavigationActions.navigate({ routeName: 'Account'})
-                    ]
-                  }));
 
               }).catch(function(error) {
                 alert("error"+ error);
               });
             }).catch(error=>{
                alert("Play signin services error" + error)
-             }).done();
+             }).done(()=>{
+               this.setState({
+                 loaded: false
+               });
+             });
 }
 
   loginFacebook(){
