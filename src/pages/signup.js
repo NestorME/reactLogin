@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{AppRegistry,Text,TextInput,View} from 'react-native';
+import{AppRegistry,Text,TextInput,View,BackHandler} from 'react-native';
 import {StackNavigator,NavigationActions} from 'react-navigation';
 
 import Button from '../components/button';
@@ -22,9 +22,21 @@ export default class signup extends Component {
     };
   }
   componentWillMount() {
+    const {dispatch} = this.props.navigation;
     GoogleSignin.hasPlayServices({ autoResolve: true });
     GoogleSignin.configure({
       webClientId: '653349341252-cnaao0cftud6llf9uel2fd5gtl97sr2v.apps.googleusercontent.com' // client ID of type WEB for your server (needed to verify user ID and offline access)
+    });
+    BackHandler.addEventListener('hardwareBackPress', function() {
+      dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'Login'
+          })
+        ]
+      }));
+      return true;
     });
   }
 
@@ -144,7 +156,7 @@ export default class signup extends Component {
                 alert("error"+ error);
               });
             }).catch(error=>{
-               alert("Play signin services error" + error)
+               alert("Play signin services error" + error);
              }).done(()=>{
                this.setState({
                  loaded: false
