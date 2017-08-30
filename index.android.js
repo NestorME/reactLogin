@@ -6,6 +6,7 @@
 
  import React, { Component } from 'react';
  import {AppRegistry,Text,View,AsyncStorage} from 'react-native';
+ import {GoogleSignin,GoogleSigninButton} from 'react-native-google-signin';
  import {StackNavigator} from 'react-navigation';
 
  import Login from './src/pages/login';
@@ -13,25 +14,40 @@
  import Signup from './src/pages/signup';
  import Header from './src/components/header';
  import styles from './src/styles/common-styles.js';
- import Firebase from 'firebase';
+ import firebase from 'firebase';
 
 export default class clapmapRN extends Component {
   constructor(props){
     super(props);
     this.state = {
       component: null,
-      loaded: false
+      loaded: true
     };
   }
 
   componentWillMount(){
+    GoogleSignin.hasPlayServices({
+      autoResolve: true
+    });
+    GoogleSignin.configure({
+      webClientId: '653349341252-cnaao0cftud6llf9uel2fd5gtl97sr2v.apps.googleusercontent.com' // client ID of type WEB for your server (needed to verify user ID and offline access)
+    });
     AsyncStorage.getItem('user_data').then((user_data_json) => {
       let user_data = JSON.parse(user_data_json);
       if(user_data != null){
-        firebase.auth.signInWithEmailAndPassword(user_data.email, user_data.password).then(function(result){
-              this.setState({component: "Account"});
-        }).catch(function(error){
-             alert(error);
+        GoogleSignin.signIn().then((user) => {
+          var token = user.idToken;
+          var provider = firebase.auth.GoogleAuthProvider;
+          const credential = provider.credential(token);
+          firebase.auth().signInWithCredential(credential).then(function(result) {
+
+          }).catch(error => {
+            alert("error" + error);
+          });
+        }).catch(error => {
+          alert("Play signin services error" + error)
+        }).done(() => {
+          this.setState({component: "Account"});
         });
       }else{
         this.setState({component: "Login"});
@@ -43,13 +59,13 @@ export default class clapmapRN extends Component {
   render(){
     if(this.state.component == "Login"){
       return (
-        <ModalStack
+        <ModalStackL
           ref={nav =>{Login}}
         />
       );
     }else if(this.state.component == "Account"){
       return (
-        <ModalStack
+        <ModalStackA
           ref={nav =>{Account}}
         />
       );
@@ -65,7 +81,11 @@ export default class clapmapRN extends Component {
   }
 
 }
-const ModalStack = StackNavigator({
+const ModalStackA = StackNavigator({
+  Account: {screen: Account},
+  Login: { screen: Login },
+});
+const ModalStackL = StackNavigator({
   Login: { screen: Login },
   Account: {screen: Account},
   Signup: {screen: Signup},

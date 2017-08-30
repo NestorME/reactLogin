@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{AppRegistry,Text,TextInput,View,BackHandler} from 'react-native';
+import{AppRegistry,Text,TextInput,View,BackHandler,AsyncStorage} from 'react-native';
 import {StackNavigator,NavigationActions} from 'react-navigation';
 
 import Button from '../components/button';
@@ -150,7 +150,7 @@ export default class signup extends Component {
                          alert("Tu ya cuentas con una cuenta has login");
                        }
                   })
-                  // AsyncStorage.setItem('user_data', JSON.stringify(result));
+                 AsyncStorage.setItem('user_data', result);
 
               }).catch(function(error) {
                 alert("error"+ error);

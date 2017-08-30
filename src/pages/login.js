@@ -105,6 +105,7 @@ export default class login extends Component {
       var provider = firebase.auth.GoogleAuthProvider;
       const credential = provider.credential(token);
       firebase.auth().signInWithCredential(credential).then(function(result) {
+          AsyncStorage.setItem('user_data',JSON.stringify(result));
         let cuser = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + cuser)
           .once('value', (snapshot) => {
@@ -160,6 +161,7 @@ export default class login extends Component {
     alert("¿No tienes una cuenta? registrate!!!");
     GoogleSignin.signOut().then(() => {
       firebase.signOut();
+      AsyncStorage.removeItem('user_data');
     }).catch((err) => {
 
     });

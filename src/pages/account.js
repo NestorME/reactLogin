@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import{
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  AsyncStorage
-} from 'react-native';
+import{AppRegistry,StyleSheet,Text,View,Image,AsyncStorage} from 'react-native';
+import {GoogleSignin,GoogleSigninButton} from 'react-native-google-signin';
+import {StackNavigator,NavigationActions} from 'react-navigation';
 
 import Button from '../components/button';
 import Header from '../components/header';
-
 import Login from './login';
-
 import styles from '../styles/common-styles.js';
-
 import firebase from '../../firebase';
 
 
@@ -49,11 +41,11 @@ export default class account extends Component {
           this.state.user &&
             <View style={styles.body}>
               <View style={page_styles.email_container}>
-                <Text style={page_styles.email_text}>{this.state.user.password.email}</Text>
+                <Text style={page_styles.email_text}>{this.state.user.email}</Text>
               </View>
               <Image
                 style={styles.image}
-                source={{uri: this.state.user.password.profileImageURL}}
+                source={{uri: this.state.user.profileImageURL}}
               />
               <Button
                   text="Logout"
@@ -68,14 +60,21 @@ export default class account extends Component {
   }
 
   logout(){
+    const {dispatch} = this.props.navigation;
+    AsyncStorage.removeItem('user_data');
+    GoogleSignin.signOut().then(() => {
+      dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'Login'
+          })
+        ]
+      }));
+      firebase.signOut();
+    }).catch((err) => {
 
-    AsyncStorage.removeItem('user_data').then(() => {
-      firebase.unauth();
-      this.props.navigator.push({
-        component: Login
-      });
     });
-
   }
 
 }
