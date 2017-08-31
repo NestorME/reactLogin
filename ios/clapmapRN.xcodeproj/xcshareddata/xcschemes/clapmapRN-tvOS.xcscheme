@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "clapmapRN-tvOS.app"
-               BlueprintName = "clapmapRN-tvOS"
-               ReferencedContainer = "container:clapmapRN.xcodeproj">
+               BuildableName = "reactLogin-tvOS.app"
+               BlueprintName = "reactLogin-tvOS"
+               ReferencedContainer = "container:reactLogin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "clapmapRN-tvOSTests.xctest"
-               BlueprintName = "clapmapRN-tvOSTests"
-               ReferencedContainer = "container:clapmapRN.xcodeproj">
+               BuildableName = "reactLogin-tvOSTests.xctest"
+               BlueprintName = "reactLogin-tvOSTests"
+               ReferencedContainer = "container:reactLogin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "clapmapRN-tvOSTests.xctest"
-               BlueprintName = "clapmapRN-tvOSTests"
-               ReferencedContainer = "container:clapmapRN.xcodeproj">
+               BuildableName = "reactLogin-tvOSTests.xctest"
+               BlueprintName = "reactLogin-tvOSTests"
+               ReferencedContainer = "container:reactLogin.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "clapmapRN-tvOS.app"
-            BlueprintName = "clapmapRN-tvOS"
-            ReferencedContainer = "container:clapmapRN.xcodeproj">
+            BuildableName = "reactLogin-tvOS.app"
+            BlueprintName = "reactLogin-tvOS"
+            ReferencedContainer = "container:reactLogin.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "clapmapRN-tvOS.app"
-            BlueprintName = "clapmapRN-tvOS"
-            ReferencedContainer = "container:clapmapRN.xcodeproj">
+            BuildableName = "reactLogin-tvOS.app"
+            BlueprintName = "reactLogin-tvOS"
+            ReferencedContainer = "container:reactLogin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "clapmapRN-tvOS.app"
-            BlueprintName = "clapmapRN-tvOS"
-            ReferencedContainer = "container:clapmapRN.xcodeproj">
+            BuildableName = "reactLogin-tvOS.app"
+            BlueprintName = "reactLogin-tvOS"
+            ReferencedContainer = "container:reactLogin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

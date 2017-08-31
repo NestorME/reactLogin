@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class clapmapRN extends Component {
+export default class reactLogin extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('clapmapRN', () => clapmapRN);
+AppRegistry.registerComponent('reactLogin', () => reactLogin);

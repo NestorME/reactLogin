@@ -25,7 +25,7 @@ export default class signup extends Component {
     const {dispatch} = this.props.navigation;
     GoogleSignin.hasPlayServices({ autoResolve: true });
     GoogleSignin.configure({
-      webClientId: '653349341252-cnaao0cftud6llf9uel2fd5gtl97sr2v.apps.googleusercontent.com' // client ID of type WEB for your server (needed to verify user ID and offline access)
+      webClientId: '10437864378-p3cbfjibkv200nei519i0andfe6ikf98.apps.googleusercontent.com' // client ID of type WEB for your server (needed to verify user ID and offline access) get from google json client type 3
     });
     BackHandler.addEventListener('hardwareBackPress', function() {
       dispatch(NavigationActions.reset({
@@ -45,24 +45,7 @@ export default class signup extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.body}>
-            <TextInput
-                style={styles.textinput}
-                onChangeText={(text) => this.setState({email: text})}
-                value={this.state.email}
-            placeholder={"Email Address"}
-            />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-            secureTextEntry={true}
-            placeholder={"Password"}
-          />
-          <Button
-            text="Signup"
-            onpress={this.signup.bind(this)}
-            button_styles={styles.primary_button}
-            button_text_styles={styles.primary_button_text} />
+
 
             <GoogleSigninButton
               style={{width: 230, height: 48}}
@@ -87,39 +70,39 @@ export default class signup extends Component {
       </View>
     );
   }
-  signup(){
-
-    this.setState({
-      loaded: false
-    });
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(function(data){
-        alert('Your account was created!');
-        this.setState({
-          loaded: true,
-          email: '',
-          password: ''
-        });
-        this.goBack();
-    }).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  switch(error.code){
-    case "EMAIL_TAKEN":
-      alert("The new user account cannot be created because the email is already in use.");
-    break;
-
-    case "INVALID_EMAIL":
-      alert("The specified email is not a valid email.");
-    break;
-
-    default:
-      alert("Error creating user:"+ error);
-  }
-  // ...
-});
-
-  }
+//   signup(){
+//
+//     this.setState({
+//       loaded: false
+//     });
+//     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(function(data){
+//         alert('Your account was created!');
+//         this.setState({
+//           loaded: true,
+//           email: '',
+//           password: ''
+//         });
+//         this.goBack();
+//     }).catch(function(error) {
+//   // Handle Errors here.
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   switch(error.code){
+//     case "EMAIL_TAKEN":
+//       alert("The new user account cannot be created because the email is already in use.");
+//     break;
+//
+//     case "INVALID_EMAIL":
+//       alert("The specified email is not a valid email.");
+//     break;
+//
+//     default:
+//       alert("Error creating user:"+ error);
+//   }
+//   // ...
+// });
+//
+//   }
   SignInGmail(){
      const { dispatch } = this.props.navigation;
     this.setState({
@@ -130,6 +113,7 @@ export default class signup extends Component {
               var provider = firebase.auth.GoogleAuthProvider;
               const credential = provider.credential(token);
               firebase.auth().signInWithCredential(credential).then(function(result) {
+                AsyncStorage.setItem('user_data', result);
                   let cuser = firebase.auth().currentUser.uid;
                   firebase.database().ref('users/'+cuser)
                   .once('value', (snapshot)=>{
@@ -150,7 +134,6 @@ export default class signup extends Component {
                          alert("Tu ya cuentas con una cuenta has login");
                        }
                   })
-                 AsyncStorage.setItem('user_data', result);
 
               }).catch(function(error) {
                 alert("error"+ error);

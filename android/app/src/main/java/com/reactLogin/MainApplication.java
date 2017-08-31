@@ -1,4 +1,4 @@
-package com.clapmaprn;
+package com.reactLogin;
 
 import android.app.Application;
 

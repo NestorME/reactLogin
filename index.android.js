@@ -16,7 +16,7 @@
  import styles from './src/styles/common-styles.js';
  import firebase from 'firebase';
 
-export default class clapmapRN extends Component {
+export default class reactLogin extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ export default class clapmapRN extends Component {
       autoResolve: true
     });
     GoogleSignin.configure({
-      webClientId: '653349341252-cnaao0cftud6llf9uel2fd5gtl97sr2v.apps.googleusercontent.com' // client ID of type WEB for your server (needed to verify user ID and offline access)
+      webClientId: '10437864378-p3cbfjibkv200nei519i0andfe6ikf98.apps.googleusercontent.com' // client ID of type WEB for your server (needed to verify user ID and offline access)
     });
     AsyncStorage.getItem('user_data').then((user_data_json) => {
       let user_data = JSON.parse(user_data_json);
@@ -91,4 +91,4 @@ const ModalStackL = StackNavigator({
   Signup: {screen: Signup},
 });
 
-AppRegistry.registerComponent('clapmapRN', () => clapmapRN);
+AppRegistry.registerComponent('reactLogin', () => reactLogin);
